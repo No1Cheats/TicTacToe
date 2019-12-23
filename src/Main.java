@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
 
     static ArrayList<Integer> playerPostions = new ArrayList<Integer>();
+    static ArrayList<Integer> cpuPostions = new ArrayList<Integer>();
 
     public static void main(String[] args) {
 
@@ -14,23 +15,30 @@ public class Main {
 
         printGameBoard(gameBoard);
 
-        Scanner scan = new Scanner(System.in);
-
         while(true){
+            Scanner scan = new Scanner(System.in);
             System.out.println("Enter your placement 1-9: ");
             int playerPos = scan.nextInt();
+            while (playerPostions.contains(playerPos) || cpuPostions.contains(playerPos)){
+                System.out.println("Position has already been taken, enter a correct one please.");
+                playerPos = scan.nextInt();
+            }
+
             move(gameBoard, playerPos, "player");
+
             Random rand = new Random();
             int cpuPos = rand.nextInt(9)+1;
+            while (playerPostions.contains(cpuPos) || cpuPostions.contains(cpuPos)){
+                cpuPos = rand.nextInt(9)+1;
+            }
+
             move(gameBoard, cpuPos, "cpu");
+
             printGameBoard(gameBoard);
+
+            String result = checkWinner();
+            System.out.println(result);
         }
-
-
-
-
-
-
 
     }
 
@@ -56,15 +64,17 @@ public class Main {
         winningCondition.add(cross2);
 
         for(List l : winningCondition){
-            if(playerPostions.contains(l)){
-                return "congrats";
-            } else if()
+            if(playerPostions.containsAll(l)){
+                return "Congratulations you've won.";
+            } else if(cpuPostions.containsAll(l)){
+                return "Sorry CPU wins, better luck next time.";
+            } else if(playerPostions.size() + cpuPostions.size() == 9){
+                return "Board full.";
+            }
         }
 
-
-
-
         return "";
+
     }
 
     public static void printGameBoard(char[][] gameBoard){
@@ -83,8 +93,10 @@ public class Main {
 
         if(user.equals("player")){
             symbol = 'X';
+            playerPostions.add(pos);
         } else {
             symbol = 'O';
+            cpuPostions.add(pos);
         }
 
         switch (pos){

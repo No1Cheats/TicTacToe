@@ -1,4 +1,4 @@
-//Jan Imhof made with a Youtube Tutorial by Alex Lee
+//Jan Imhof made with a Youtube Tutorial by Alex Lee (https://www.youtube.com/watch?v=gQb3dE-y1S4)
 
 import java.util.*;
 

@@ -15,7 +15,7 @@ public class Main {
 
         printGameBoard(gameBoard);
 
-        while(true){
+        while(true){ //Main game Loop
             Scanner scan = new Scanner(System.in);
             System.out.println("Enter your placement 1-9: ");
             int playerPos = scan.nextInt();
@@ -38,12 +38,15 @@ public class Main {
 
             String result = checkWinner();
             System.out.println(result);
+            if(result.equals("Congratulations you've won.") || result.equals("Sorry CPU wins, better luck next time.") || result.equals("Board full.")){
+                break;
+            }
         }
 
     }
 
     public static String checkWinner(){
-
+        //Lists all the winning Conditions
         List topRow = Arrays.asList(1,2,3);
         List middleRow = Arrays.asList(4,5,6);
         List bottomRow = Arrays.asList(7,8,9);
@@ -52,7 +55,7 @@ public class Main {
         List rightCol = Arrays.asList(3,6,9);
         List cross1 = Arrays.asList(1,5,9);
         List cross2 = Arrays.asList(7,5,3);
-
+        //List of winning conditions
         List<List> winningCondition = new ArrayList<List>();
         winningCondition.add(topRow);
         winningCondition.add(middleRow);
@@ -63,13 +66,14 @@ public class Main {
         winningCondition.add(cross1);
         winningCondition.add(cross2);
 
+        //Iterator to go and check for any winning conditions
         for(List l : winningCondition){
             if(playerPostions.containsAll(l)){
-                return "Congratulations you've won.";
+                return "Congratulations you've won."; //Player won
             } else if(cpuPostions.containsAll(l)){
-                return "Sorry CPU wins, better luck next time.";
+                return "Sorry CPU wins, better luck next time."; //CPU won
             } else if(playerPostions.size() + cpuPostions.size() == 9){
-                return "Board full.";
+                return "Board full."; //Board full
             }
         }
 
@@ -77,7 +81,7 @@ public class Main {
 
     }
 
-    public static void printGameBoard(char[][] gameBoard){
+    public static void printGameBoard(char[][] gameBoard){ //Prints the GameBoard
         for(char[] row : gameBoard){
             for(char c : row){
                 System.out.print(c);
@@ -88,7 +92,6 @@ public class Main {
     }
 
     public static void move(char[][] gameBoard, int pos, String user){
-
         char symbol;
 
         if(user.equals("player")){

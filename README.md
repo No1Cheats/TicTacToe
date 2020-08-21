@@ -3,5 +3,5 @@ Small TicTacToe game in Java made with the help of a Youtube tutorial (https://w
 
 ## Tools and Software used
 
-* IntelliJ Idead
+* IntelliJ Idea
 * Java 11
